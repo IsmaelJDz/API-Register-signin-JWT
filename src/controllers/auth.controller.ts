@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import User, { IUser } from "../models/User";
 
 import jwt from "jsonwebtoken";
@@ -22,7 +22,11 @@ export const signup = async (req: Request, res: Response) => {
   res.header("auth-token", token).json(savedUser);
 };
 
-export const signin = async (req: Request, res: Response) => {
+export const signin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) return res.send(400).json("Email or password is wrong");
   const correctPassword: boolean = await user.validatePassword(
@@ -39,8 +43,11 @@ export const signin = async (req: Request, res: Response) => {
   );
 
   res.header("auth-token", token).json(user);
+  //res.header("auth-token", token).json(user);
 };
 
-export const profile = (req: Request, res: Response) => {
-  res.send("Hello profile!");
+export const profile = async (req: Request, res: Response) => {
+  const user = await User.findById(req.userId, { password: 0 });
+  if (!user) return res.status(404).json("No user found");
+  res.json(user);
 };

@@ -1,6 +1,16 @@
 ## API REST, NODE, Typescript JWT
 
-Esta API esta creada con diferentes tecnologias JavaScript, para la autenticacion de usiarios y traer los datos del mismo con el uso de TypeScript y ES6.
+This API is building with differents JavaScript technologies, for user authentication and get the data, register, login, profile.
+
+--Typescript, and ES6
+
+## EndPoints
+
+localhost:4000/api/auth/signup
+localhost:4000/api/auth/signin
+localhost:4000/api/auth/profile
+
+you can get the data with -- insomnia or postman
 
 ## Cómo funciona?
 
